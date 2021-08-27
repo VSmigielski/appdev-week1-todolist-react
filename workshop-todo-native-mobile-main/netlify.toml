@@ -1,5 +1,0 @@
-[build]
-command = "expo build:web"
-functions = "functions"
-publish = "web-build"
-targetPort = 8888

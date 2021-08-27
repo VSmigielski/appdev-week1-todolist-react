@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, Button, StyleSheet } from "react-native";
+import classnames from "classnames";
 
 const FILTER_TITLES = {
   SHOW_ALL: "All",
@@ -7,16 +7,17 @@ const FILTER_TITLES = {
   SHOW_COMPLETED: "Completed",
 };
 
-function Footer(props) {
+function Footer (props) {
   const { activeCount } = props;
 
   const renderTodoCount = () => {
     const itemWord = activeCount === 1 ? "item" : "items";
 
     return (
-      <Text>
-        {activeCount || "No"} {itemWord} left
-      </Text>
+      <span className="todo-count">
+        <strong>{activeCount || "No"}</strong>&nbsp;
+        {itemWord} left
+      </span>
     );
   }
 
@@ -25,40 +26,28 @@ function Footer(props) {
     const { filter: selectedFilter, onShow } = props;
 
     return (
-      <Button title={title} onPress={() => onShow(filter)} />
+      <button className={classnames({ selected: filter === selectedFilter })}
+      onClick={() => onShow(filter)} style={{ cursor: "pointer" }}>{title}</button>
     );
   }
 
   const renderFilterList = () => {
     return ["SHOW_ALL", "SHOW_ACTIVE", "SHOW_COMPLETED"].map((filter) => (
-      <View key={filter}>
-        {renderFilterLink(filter)}
-      </View>
+      <li key={filter}>{renderFilterLink(filter)}</li>
     ));
   }
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeCount]);
+		console.log("PROP Change: Active items is %d", activeCount);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [activeCount]);
 
   return (
-      <View style={styles.footer}>
-        {renderTodoCount()}
-      </View>
+    <footer className="footer">
+      {renderTodoCount()}
+      <ul className="filters">{renderFilterList()}</ul>
+    </footer>
   );
 }
-
-const styles = StyleSheet.create({
-  footer: {
-    width: '100%',
-    paddingTop: 8,
-    paddingBottom: 5,
-    alignItems: 'center',
-    paddingHorizontal: 8,
-    backgroundColor: '#fff',
-    borderColor: '#d0dde2',
-    borderTopWidth: 0.5,
-  },
-});
 
 export default Footer;

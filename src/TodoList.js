@@ -1,8 +1,6 @@
 import React from "react";
-import { StyleSheet, View, FlatList } from 'react-native';
-import Todo from "./Todo.js";
-import Footer from "./Footer.js";
-import SegmentedControl from '@react-native-segmented-control/segmented-control';
+import Todo from "./Todo";
+import Footer from "./Footer";
 
 const TODO_FILTERS = {
   SHOW_ALL: () => true,
@@ -10,43 +8,19 @@ const TODO_FILTERS = {
   SHOW_COMPLETED: (todo) => todo.completed,
 };
 
-function TodoList(props) {
-
+function TodoList (props) {
   const { actions, todos } = props;
   const [filter, setFilter] = React.useState("SHOW_ALL");
-  const [index, setIndex] = React.useState(0);
 
   const handleShow = (filter) => {
     setFilter(filter);
-
-    if (filter == "SHOW_ALL") {
-      setIndex(0);
-    } else if (filter == "SHOW_ACTIVE") {
-      setIndex(1);
-    } else if (filter == "SHOW_COMPLETED") {
-      setIndex(2);
-    }
-  };
-
-  const segmentFilter = (event) => {
-    let val = '';
-
-    if (event == 'All') {
-      val = 'SHOW_ALL';
-    } else if (event == 'Active') {
-      val = 'SHOW_ACTIVE';
-    } else if (event == 'Completed') {
-      val = 'SHOW_COMPLETED';
-    }
-
-    handleShow(val);
   };
 
   const handleClearCompletedDoc = () => {
     actions.clearCompletedDoc();
   };
 
-  const renderFooter = (completedCount) => {
+const renderFooter = (completedCount) => {
     const activeCount = todos.length - completedCount;
 
     if (todos.length) {
@@ -70,52 +44,23 @@ function TodoList(props) {
 
   if (!todos.length) {
     return (
-      <View style={styles.filter}>
-        <SegmentedControl 
-          paddingVertical={10}
-          values={['All', 'Active', 'Completed']}
-          selectedIndex={index}
-          onValueChange={(event) => segmentFilter(event)}
-        />
-        <FlatList style={styles.todolist}></FlatList>
-      </View>
+      <section className="main">
+          <ul className="todo-list"></ul>
+      </section>
     )
   }
 
-  const renderItems = ({ item }) => (
-    <Todo todo={item} deleteRestTodo={actions.deleteRestTodo} completeRestTodo={actions.completeRestTodo} />
-  )
-
   return (
-    <>
-      <View style={styles.filter}>
-        <SegmentedControl
-          paddingVertical={10}
-          values={['All', 'Active', 'Completed']}
-          selectedIndex={index}
-          onValueChange={(event) => segmentFilter(event)}
-        />
-      </View>
-      <View style={styles.main}>
-        <FlatList style={styles.todolist}
-          data={filteredTodos} keyExtractor={item => item.id} renderItem={renderItems} >
-        </FlatList>
-      </View>
+    <section className="main">
+        <ul className={`todo-list`}>
+          {filteredTodos.map((todo) => (
+            <Todo key={todo.id} todo={todo} {...actions} />
+          ))}
+        </ul>
+
       {renderFooter(completedCount)}
-    </>
+    </section>
   );
 }
-
-const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-    alignContent: "center",
-    paddingHorizontal: 10,
-  },
-  filter: {
-    paddingHorizontal: 10,
-    paddingBottom: 10,
-  },
-});
 
 export default TodoList;

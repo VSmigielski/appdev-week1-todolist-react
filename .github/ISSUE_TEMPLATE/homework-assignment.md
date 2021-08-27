@@ -3,16 +3,15 @@ name: Homework Assignment
 about: Use this template to submit the homework
 title: "[HW] <NAME>"
 labels: homework, wait for review
-assignees: RyanWelford, SonicDMG
+assignees: SonicDMG, RyanWelford
 
 ---
 
-**Name:** REPLACE_ME
-**Email:** REPLACE_ME
-**Linkedin Profile:** REPLACE_ME
+**Name:** <Full Name>
+**Email:** <Email>
+**Linkedin Profile:** <Link>
 
-Attach the homework screenshot below:
-Just a single image of your deployed app on your mobile device via Expo Go or in a browser is fine (note, using Expo Go is the fun way)
+Attach the homework screenshots below:
 -----------------------------------------
 
-<SCREENSHOT>
+<SCREENSHOTS>

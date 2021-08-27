@@ -1,18 +1,5 @@
-node_modules/
-.expo/
-npm-debug.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-*.orig.*
-web-build/
-
-# macOS
-.DS_Store
-
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
 venv
 .env
 
@@ -28,6 +15,7 @@ venv
 /build
 
 # misc
+.DS_Store
 .env.local
 .env.development.local
 .env.test.local
@@ -39,6 +27,3 @@ yarn-error.log*
 
 # Local Netlify folder
 .netlify
-
-# Package Lock
-package-lock.json

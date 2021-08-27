@@ -1,5 +1,4 @@
-const {createClient}= require("@astrajs/rest")
-
+const { createClient}= require("@astrajs/rest")
 const chalk = require('chalk')
 let astraRestClient = null;
 
@@ -8,7 +7,7 @@ const requestWithRetry = async (url, client) => {
   for (let i = 1; i <= MAX_RETRIES; i++) {
     try {
       let response = await client.get(url);
-      return response;
+      return response
     } catch(e) {
       const timeout = 500 * i * 10;
       console.log(chalk.blue('         ... waiting', timeout, 'ms'));
